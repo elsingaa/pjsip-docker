@@ -1,0 +1,17 @@
+version: "3"
+services:
+  sip2mqtt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sip2mqtt
+    environment:
+      - MQTT_DOMAIN=<mqtt server>
+      - MQTT_PORT=1883
+      - MQTT_USERNAME=<mqtt user>
+      - MQTT_PASSWORD=<mqtt password>
+      - MQTT_KEEPALIVE=60      
+      - SIP_DOMAIN=<sip domain>
+      - SIP_USERNAME=<sip user>
+      - SIP_PASSWORD=<sip password>
+    restart: always
