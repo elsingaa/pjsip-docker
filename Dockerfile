@@ -29,7 +29,7 @@ RUN pip install paho-mqtt
 
 COPY config_site.h /tmp/
 
-ENV PJSIP_VERSION=2.5.5
+ENV PJSIP_VERSION=2.9
 RUN mkdir /usr/src/pjsip && \
     cd /usr/src/pjsip && \
     curl -vsL https://github.com/pjsip/pjproject/archive/${PJSIP_VERSION}.tar.gz | \ 
@@ -52,7 +52,8 @@ RUN mkdir /usr/src/pjsip && \
  
 
 #ADD https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py /opt/sip2mqtt/sip2mqtt.py
-RUN curl -L https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py -o /opt/sip2mqtt/sip2mqtt.py
+RUN mkdir /opt/sip2mqtt && \
+        curl -L https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py -o /opt/sip2mqtt/sip2mqtt.py
 #RUN wget https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py -O /opt/sip2mqtt/sip2mqtt.py
 
 RUN cd /usr/src/pjsip/pjsip-apps/src/python && \
