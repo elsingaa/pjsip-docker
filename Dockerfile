@@ -1,6 +1,6 @@
 # -*- Dockerfile -*-
 
-FROM debian:jessie
+FROM debian:buster
 MAINTAINER MartyTremblay
 
 RUN apt-get update -qq && \
@@ -8,11 +8,13 @@ RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
             build-essential \
             ca-certificates \
+            python-setuptools \
+            apt-utils \
             curl \
             libgsm1-dev \
             libspeex-dev \
             libspeexdsp-dev \
-            libsrtp0-dev \
+            libsrtp2-dev \
             libssl-dev \
             portaudio19-dev \
             python \
@@ -22,6 +24,7 @@ RUN apt-get update -qq && \
             && \
     apt-get purge -y --auto-remove && rm -rf /var/lib/apt/lists/*
 
+RUN pip install wheel
 RUN pip install paho-mqtt
 
 COPY config_site.h /tmp/
@@ -45,6 +48,8 @@ RUN mkdir /usr/src/pjsip && \
                 --prefix=/usr \
                 && \
     make all install && \
+    /sbin/ldconfig 
+ 
 
 #ADD https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py /opt/sip2mqtt/sip2mqtt.py
 RUN curl -L https://raw.githubusercontent.com/MartyTremblay/sip2mqtt/master/sip2mqtt.py -o /opt/sip2mqtt/sip2mqtt.py
