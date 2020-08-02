@@ -32,8 +32,8 @@ COPY config_site.h /tmp/
 ENV PJSIP_VERSION=2.5.5
 RUN mkdir /usr/src/pjsip && \
     cd /usr/src/pjsip && \
-    curl -vsL http://www.pjsip.org/release/${PJSIP_VERSION}/pjproject-${PJSIP_VERSION}.tar.bz2 | \
-         tar --strip-components 1 -xj && \
+    curl -vsL https://github.com/pjsip/pjproject/archive/${PJSIP_VERSION}.tar.gz | \ 
+         tar --strip-components 1 -xz && \
     mv /tmp/config_site.h pjlib/include/pj/ && \
     CFLAGS="-O2 -DNDEBUG" \
     ./configure --enable-shared \
